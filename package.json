@@ -1,0 +1,16 @@
+{
+  "name": "proofbridge",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "start": "node server.mjs",
+    "dev": "node server.mjs"
+  },
+  "dependencies": {
+    "express": "^5.2.1",
+    "multer": "^2.4.0",
+    "ollama": "^0.6.4",
+    "pdfkit": "^0.20.2",
+    "tesseract.js": "^7.0.0"
+  }
+}

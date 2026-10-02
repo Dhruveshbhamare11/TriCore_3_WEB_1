@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ProofBridge — Evidence-First Social Impact Platform</title>
+  <meta name="description" content="A proof-first platform connecting NGO impact claims to inspectable evidence: media metadata, invoice audits, and authenticated volunteer proof-of-presence.">
+  
+  <!-- Modern Typography from Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Core Stylesheet -->
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <!-- Header / Main Navigation -->
+  <header class="navbar" id="main-nav">
+    <div class="nav-container">
+      <a href="#/" class="brand-logo" id="brand-home-link">
+        <div class="brand-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+            <circle cx="12" cy="12" r="3" fill="currentColor"/>
+          </svg>
+        </div>
+        <div class="brand-text">
+          <span class="brand-name">ProofBridge</span>
+          <span class="brand-tag">Evidence-First</span>
+        </div>
+      </a>
+
+      <!-- Quick Nav Links -->
+      <nav class="nav-links">
+        <a href="#/" class="nav-item active" data-route="landing">Home</a>
+        <a href="#/explore" class="nav-item" data-route="explore">Explore NGOs</a>
+        <a href="#/activity/act_school_kits" class="nav-item nav-highlight" data-route="activity">
+          <span class="pulse-dot"></span> Live Evidence Feed
+        </a>
+        <a href="#/ngo-dashboard" class="nav-item" data-route="ngo-dashboard">
+          <i data-lucide="layout-dashboard" style="width: 14px; height: 14px;"></i> NGO Dashboard
+        </a>
+        <a href="#/leaderboard" class="nav-item" data-route="leaderboard">
+          <i data-lucide="trophy" style="width: 14px; height: 14px; color: #fbbf24;"></i> Leaderboard
+        </a>
+        <a href="#/profile" class="nav-item" data-route="profile">My Passport & Recognition</a>
+      </nav>
+
+      <!-- Right Header Actions -->
+      <div class="nav-actions">
+        <a href="https://ngodarpan.gov.in/#/" target="_blank" rel="noopener noreferrer" class="darpan-badge-header" title="Verified against NITI Aayog NGO DARPAN Registry">
+          <span class="darpan-icon">🏛️</span>
+          <span>NGO DARPAN Integrated</span>
+        </a>
+        <a href="#/profile" class="volunteer-profile-pill" id="user-passport-btn">
+          <div class="avatar-circle">DS</div>
+          <div class="pill-info">
+            <span class="pill-name">Dhruvesh</span>
+            <span class="pill-badge" id="nav-volunteer-count">17 Attendances</span>
+          </div>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main View Render Target -->
+  <main id="app" class="main-content">
+    <!-- Dynamic SPA Views will be injected here by app.js -->
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="footer-container">
+      <div class="footer-brand">
+        <div class="brand-logo footer-logo">
+          <div class="brand-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+              <circle cx="12" cy="12" r="3" fill="currentColor"/>
+            </svg>
+          </div>
+          <span class="brand-name">ProofBridge</span>
+        </div>
+        <p class="footer-quote">
+          "Don't tell users who to trust. Show them the evidence."
+        </p>
+        <p class="footer-disclaimer">
+          DARPAN record matching does not constitute endorsement, affiliation, or recognition by NITI Aayog. All non-governmental organizational records are verified for transparency.
+        </p>
+      </div>
+
+      <div class="footer-links-grid">
+        <div class="footer-col">
+          <h4>Explore</h4>
+          <a href="#/explore">All NGOs</a>
+          <a href="#/ngo/ngo_udaan">Udaan Foundation</a>
+          <a href="#/activity/act_school_kits">School Kit Evidence</a>
+        </div>
+        <div class="footer-col">
+          <h4>Evidence Signals</h4>
+          <a href="#/activity/act_school_kits" onclick="window.openEvidenceDrawer()">EXIF Metadata Check</a>
+          <a href="#/activity/act_school_kits" onclick="window.openEvidenceDrawer()">Invoice Mathematics</a>
+          <a href="#/activity/act_school_kits" onclick="window.openEvidenceDrawer()">Volunteer Check-In</a>
+        </div>
+        <div class="footer-col">
+          <h4>Government Portals</h4>
+          <a href="https://ngodarpan.gov.in/#/" target="_blank" rel="noopener noreferrer">NITI Aayog NGO DARPAN ↗</a>
+          <a href="https://incometaxindia.gov.in" target="_blank" rel="noopener noreferrer">Income Tax 80G Verification ↗</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 ProofBridge. Built with ❤️ for transparency and verified social impact.</p>
+    </div>
+  </footer>
+
+  <!-- ======================================================== -->
+  <!-- MODALS & DRAWERS (Global Interactive Overlays)          -->
+  <!-- ======================================================== -->
+
+  <!-- 1. Full-Featured Evidence Passport Drawer (HERO FEATURE) -->
+  <div id="evidence-drawer-overlay" class="drawer-overlay" onclick="window.closeEvidenceDrawer(event)">
+    <div class="evidence-drawer" id="evidence-drawer-content" onclick="event.stopPropagation()">
+      <div class="drawer-header">
+        <div class="drawer-title-group">
+          <div class="drawer-badge">
+            <i data-lucide="shield-check"></i>
+            <span>EVIDENCE PASSPORT</span>
+          </div>
+          <h2 id="drawer-activity-title">School Kit Distribution Drive</h2>
+          <p class="drawer-subtitle" id="drawer-activity-subtitle">
+            Udaan Foundation • Dharavi, Mumbai • September 24, 2026
+          </p>
+        </div>
+        <button class="drawer-close-btn" onclick="window.closeEvidenceDrawer()" aria-label="Close Drawer">
+          <i data-lucide="x"></i>
+        </button>
+      </div>
+
+      <!-- Drawer Body -->
+      <div class="drawer-body" id="drawer-body-content">
+        <!-- Rendered dynamically by app.js -->
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. Volunteer Registration & Pass Modal -->
+  <div id="volunteer-modal-overlay" class="modal-overlay" onclick="window.closeVolunteerModal(event)">
+    <div class="modal-card volunteer-modal" onclick="event.stopPropagation()">
+      <button class="modal-close-btn" onclick="window.closeVolunteerModal()">
+        <i data-lucide="x"></i>
+      </button>
+
+      <div id="volunteer-step-form" class="volunteer-step">
+        <div class="modal-badge">
+          <i data-lucide="ticket"></i>
+          <span>ON-GROUND PROOF-OF-PRESENCE</span>
+        </div>
+        <h3>Volunteer for this Activity</h3>
+        <p class="modal-desc">
+          Authenticated participants serve as independent witnesses. Get your personalized event pass to check in on-site.
+        </p>
+
+        <form id="volunteer-reg-form" onsubmit="window.handleVolunteerSubmit(event)">
+          <div class="form-group">
+            <label for="vol-name">Full Name</label>
+            <input type="text" id="vol-name" value="Dhruvesh Sharma" required>
+          </div>
+          <div class="form-group">
+            <label for="vol-contact">Mobile Number / Email</label>
+            <input type="text" id="vol-contact" value="+91 98201 54321" required>
+          </div>
+          <div class="demo-otp-banner">
+            <i data-lucide="info"></i>
+            <span>Prototype Authentication: Demo OTP is <strong>123456</strong></span>
+          </div>
+          <div class="form-group">
+            <label for="vol-otp">Enter OTP</label>
+            <input type="text" id="vol-otp" placeholder="123456" maxlength="6" value="123456" required>
+          </div>
+          <button type="submit" class="btn btn-primary btn-block">
+            <i data-lucide="shield-check"></i> Authenticate & Generate Pass
+          </button>
+        </form>
+      </div>
+
+      <!-- Step 2: Generated 3D Holographic Volunteer Pass -->
+      <div id="volunteer-step-pass" class="volunteer-step" style="display: none;">
+        <div class="pass-card-3d">
+          <div class="pass-header">
+            <div class="pass-brand">
+              <span class="pass-logo">🎒</span>
+              <div>
+                <strong>Udaan Foundation</strong>
+                <span class="pass-type">EVENT VOLUNTEER PASS</span>
+              </div>
+            </div>
+            <div class="pass-id-tag" id="pass-id-display">#V10482</div>
+          </div>
+
+          <div class="pass-body">
+            <div class="pass-details">
+              <div class="pass-item">
+                <span class="pass-label">HOLDER</span>
+                <span class="pass-val" id="pass-holder-name">Dhruvesh Sharma</span>
+              </div>
+              <div class="pass-item">
+                <span class="pass-label">ACTIVITY</span>
+                <span class="pass-val">School Kit Distribution</span>
+              </div>
+              <div class="pass-item">
+                <span class="pass-label">VENUE & DATE</span>
+                <span class="pass-val">Dharavi School #4 • 24 Sep 2026</span>
+              </div>
+              <div class="pass-item">
+                <span class="pass-label">STATUS</span>
+                <span class="pass-val status-pill-active" id="pass-status-pill">
+                  <span class="dot-indicator"></span> Ready to Check In
+                </span>
+              </div>
+            </div>
+
+            <!-- Simulated QR Canvas -->
+            <div class="pass-qr-box">
+              <canvas id="qr-code-canvas" width="130" height="130"></canvas>
+              <span class="qr-caption">Scan at physical check-in</span>
+            </div>
+          </div>
+
+          <div class="pass-footer">
+            <div class="pass-timing-alert" id="pass-timing-box" style="background: rgba(0,0,0,0.25); border-radius: var(--radius-md); padding: 0.75rem; margin-bottom: 0.75rem;">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.35rem;">
+                <span style="font-size: 0.72rem; font-weight: 700; color: #34d399;">EVENT: 10:00 AM – 3:00 PM</span>
+                <span class="badge" id="qr-window-status-badge" style="background: rgba(16, 185, 129, 0.2); color: #34d399; border: 1px solid #10b981; font-size: 0.68rem;">Check-in Active</span>
+              </div>
+              <div style="font-size: 0.75rem; color: #cbd5e1;" id="pass-window-msg">📍 Venue Check-in is active for Dharavi School #4.</div>
+            </div>
+
+            <!-- Testing Controls for Judges -->
+            <div class="demo-time-toggles" style="margin: 0.5rem 0 0.85rem; display: flex; gap: 0.5rem;">
+              <button type="button" class="btn btn-outline" style="font-size: 0.72rem; padding: 0.35rem 0.6rem; color: #fecaca; border-color: rgba(239,68,68,0.5);" onclick="window.testCheckInWindow('early')">
+                ⏰ Test Early 09:30 AM (Rejected)
+              </button>
+              <button type="button" class="btn btn-outline" style="font-size: 0.72rem; padding: 0.35rem 0.6rem; color: #bbf7d0; border-color: rgba(16,185,129,0.5);" onclick="window.testCheckInWindow('active')">
+                ✓ Live Window 10:03 AM (Active)
+              </button>
+            </div>
+
+            <div id="pass-actions-container">
+              <button class="btn btn-success btn-block" id="simulate-checkin-btn" onclick="window.simulateVolunteerCheckIn()">
+                <i data-lucide="user-check"></i> Check In at Venue (10:03 AM)
+              </button>
+              <button class="btn btn-primary btn-block" id="simulate-checkout-btn" style="display: none; margin-top: 0.5rem;" onclick="window.simulateVolunteerCheckOut()">
+                <i data-lucide="log-out"></i> Check Out of Event (02:47 PM)
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Success Feedback Banner -->
+        <div id="checkin-success-banner" class="checkin-success-alert" style="display: none;">
+          <div class="success-icon"><i data-lucide="check"></i></div>
+          <div class="success-text" id="checkin-success-text">
+            <strong>Attendance Authenticated!</strong>
+            <p>September 24, 2026 • 10:03 AM IST. Live activity counter updated to <strong>18 volunteers</strong>.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. Formatted Document / Invoice Viewer Modal -->
+  <div id="invoice-modal-overlay" class="modal-overlay" onclick="window.closeInvoiceModal(event)">
+    <div class="modal-card invoice-modal" onclick="event.stopPropagation()">
+      <div class="invoice-paper">
+        <div class="invoice-top">
+          <div>
+            <h2 class="invoice-vendor">ABC Educational Supplies Pvt Ltd</h2>
+            <p class="invoice-subtext">Gala #14, Wadala Commercial Complex, Mumbai - 400031</p>
+            <p class="invoice-subtext"><strong>GSTIN:</strong> 27AABCA1234F1Z8</p>
+          </div>
+          <div class="invoice-meta-box">
+            <span class="invoice-badge">TAX INVOICE</span>
+            <p><strong>Invoice No:</strong> INV-4821</p>
+            <p><strong>Date:</strong> 23-Sep-2026</p>
+            <p><strong>PO Ref:</strong> UDAAN-2026-09</p>
+          </div>
+        </div>
+
+        <div class="invoice-bill-to">
+          <strong>Billed To:</strong> Udaan Foundation, 102 Asha Nivas, Dharavi Road, Mumbai - 400017
+        </div>
+
+        <table class="invoice-table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Item Description</th>
+              <th>Qty</th>
+              <th>Rate (₹)</th>
+              <th style="text-align: right;">Amount (₹)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td>
+                <strong>Standard Student School Kit</strong><br>
+                <small>Blue Backpack, 6 Ruled Notebooks, Oxford Geometry Box, 4 Ballpoint Pens</small>
+              </td>
+              <td class="highlight-qty">220</td>
+              <td>660.00</td>
+              <td style="text-align: right;">1,45,200.00</td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr>
+              <td colspan="4" style="text-align: right;">Subtotal:</td>
+              <td style="text-align: right;">₹1,45,200.00</td>
+            </tr>
+            <tr>
+              <td colspan="4" style="text-align: right;">CGST + SGST (Exempt Education Relief):</td>
+              <td style="text-align: right;">₹0.00</td>
+            </tr>
+            <tr class="grand-total-row">
+              <td colspan="4" style="text-align: right;"><strong>Total Paid:</strong></td>
+              <td style="text-align: right;"><strong>₹1,45,200.00</strong></td>
+            </tr>
+          </tfoot>
+        </table>
+
+        <!-- Mathematical Audit Bar -->
+        <div class="invoice-audit-status">
+          <div class="audit-item">
+            <i data-lucide="check-circle" class="text-success"></i>
+            <span>Line Math: 220 × ₹660 = ₹1,45,200 ✓</span>
+          </div>
+          <div class="audit-item">
+            <i data-lucide="alert-triangle" class="text-warning"></i>
+            <span>Quantity Documented: <strong>220 kits</strong> (Claimed: 250 kits)</span>
+          </div>
+        </div>
+
+        <div class="invoice-actions">
+          <button class="btn btn-outline" onclick="window.closeInvoiceModal()">Close Invoice</button>
+          <button class="btn btn-primary" onclick="window.closeInvoiceModal(); window.openEvidenceDrawer();">
+            <i data-lucide="file-search"></i> Inspect in Evidence Drawer
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. Demo Donation Modal -->
+  <div id="donate-modal-overlay" class="modal-overlay" onclick="window.closeDonateModal(event)">
+    <div class="modal-card donate-modal" onclick="event.stopPropagation()">
+      <button class="modal-close-btn" onclick="window.closeDonateModal()">
+        <i data-lucide="x"></i>
+      </button>
+
+      <div id="donate-step-input">
+        <div class="modal-badge">
+          <i data-lucide="heart"></i>
+          <span>TRANSPARENT DONATION</span>
+        </div>
+        <h3 id="donate-modal-title">Contribute to Udaan Foundation</h3>
+        <p class="modal-desc">
+          Every contribution is tied to verifiable purchase receipts and on-ground evidence.
+        </p>
+
+        <div class="amount-chips">
+          <button type="button" class="amount-chip" onclick="window.selectDonationAmount(200, this)">₹200</button>
+          <button type="button" class="amount-chip" onclick="window.selectDonationAmount(500, this)">₹500</button>
+          <button type="button" class="amount-chip active" onclick="window.selectDonationAmount(800, this)">₹800 (1 Kit)</button>
+          <button type="button" class="amount-chip" onclick="window.selectDonationAmount(1600, this)">₹1,600 (2 Kits)</button>
+        </div>
+
+        <div class="form-group" style="margin-top: 1rem;">
+          <label>Custom Contribution Amount (₹)</label>
+          <input type="number" id="custom-donation-amount" value="800" min="50" step="50">
+        </div>
+
+        <div class="demo-payment-note">
+          <i data-lucide="info"></i>
+          <span>Demo Checkout: No actual card or bank charges will occur.</span>
+        </div>
+
+        <button type="button" class="btn btn-primary btn-block" onclick="window.processDemoDonation()">
+          <i data-lucide="lock"></i> Confirm ₹<span id="donate-btn-amount">800</span> Contribution
+        </button>
+      </div>
+
+      <!-- Donation Success Step with Official Contribution Certificate PDF Download -->
+      <div id="donate-step-success" style="display: none; text-align: center; padding: 1.5rem 0;">
+        <div class="donate-success-icon">
+          <i data-lucide="check-circle-2"></i>
+        </div>
+        <h3>Contribution Recorded!</h3>
+        <p class="modal-desc" id="donate-success-desc">
+          Thank you! Your simulated donation of ₹800 has been recorded under the School Kit Campaign.
+        </p>
+        <div class="receipt-id-box">
+          Certificate ID: <strong id="donate-cert-id-display">#DON-UDAAN-2026-948</strong>
+        </div>
+        <div style="background: #fffbeb; border: 1px solid #fde68a; border-radius: var(--radius-md); padding: 0.75rem; font-size: 0.78rem; color: #92400e; margin-bottom: 1.25rem;">
+          <strong>Notice:</strong> This certificate acknowledges the recorded contribution on the platform and is not a tax-deductible donation receipt.
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+          <a href="/api/certificates/donor/DON-UDAAN-2026-948" id="download-donor-cert-btn" class="btn btn-primary btn-block" target="_blank" download>
+            <i data-lucide="download"></i> Download Certificate of Contribution (PDF)
+          </a>
+          <button class="btn btn-outline btn-block" onclick="window.closeDonateModal(); window.navigateTo('activity/act_school_kits');">
+            <i data-lucide="eye"></i> View Impact & Evidence Passport
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5. Location Permission / Picker Modal -->
+  <div id="location-picker-modal" class="modal-overlay" onclick="window.closeLocationPicker(event)">
+    <div class="modal-card" style="max-width: 480px;" onclick="event.stopPropagation()">
+      <button class="modal-close-btn" onclick="window.closeLocationPicker()">
+        <i data-lucide="x"></i>
+      </button>
+      <div class="modal-badge">
+        <i data-lucide="map-pin"></i>
+        <span>LOCATION DISCOVERY</span>
+      </div>
+      <h3 style="margin-bottom: 0.35rem;">Find Social-Impact Activities Near You</h3>
+      <p class="modal-desc" style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1.25rem;">
+        We only use your location to surface nearby ongoing drives and volunteer opportunities. Your exact GPS coordinates are never publicly shared.
+      </p>
+
+      <button class="btn btn-primary btn-block" onclick="window.requestBrowserLocation()" style="margin-bottom: 1.25rem;">
+        <i data-lucide="navigation"></i> Allow Browser Geolocation (Detect Current City)
+      </button>
+
+      <div style="text-align: center; font-size: 0.78rem; color: var(--text-muted); margin-bottom: 1rem; position: relative;">
+        <span style="background: #ffffff; padding: 0 10px; position: relative; z-index: 1;">OR CHOOSE LOCATION MANUALLY</span>
+        <hr style="position: absolute; top: 50%; left: 0; right: 0; margin: 0; border: none; border-top: 1px solid var(--border-color); z-index: 0;">
+      </div>
+
+      <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.5rem; margin-bottom: 1.25rem;">
+        <button class="btn btn-outline" onclick="window.selectCityLocation('Mumbai, MH')">📍 Mumbai</button>
+        <button class="btn btn-outline" onclick="window.selectCityLocation('Pune, MH')">📍 Pune</button>
+        <button class="btn btn-outline" onclick="window.selectCityLocation('Bengaluru, KA')">📍 Bengaluru</button>
+        <button class="btn btn-outline" onclick="window.selectCityLocation('Delhi NCR')">📍 Delhi NCR</button>
+      </div>
+
+      <div class="form-group" style="margin-bottom: 0.75rem;">
+        <label>Other Locality / City</label>
+        <input type="text" id="manual-city-input" placeholder="e.g. Bandra, Mumbai or Hyderabad">
+      </div>
+      <button class="btn btn-primary btn-block" onclick="window.saveManualLocation()">
+        Confirm City
+      </button>
+    </div>
+  </div>
+
+  <!-- 6. User Feedback & Complaints Modal -->
+  <div id="feedback-modal" class="modal-overlay" onclick="window.closeFeedbackModal(event)">
+    <div class="modal-card" style="max-width: 520px;" onclick="event.stopPropagation()">
+      <button class="modal-close-btn" onclick="window.closeFeedbackModal()">
+        <i data-lucide="x"></i>
+      </button>
+      <div class="modal-badge" style="background: #fef3c7; color: #b45309; border-color: #fde68a;">
+        <i data-lucide="flag"></i>
+        <span>COMMUNITY INTEGRITY</span>
+      </div>
+      <h3 style="margin-bottom: 0.35rem;">Submit Feedback or Report Concern</h3>
+      <p class="modal-desc" style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1.25rem;">
+        Help maintain transparency. Complaints create a verifiable moderation record for platform administrators without automatically branding an NGO fraudulent.
+      </p>
+
+      <div class="form-group">
+        <label>Report Type</label>
+        <select id="feedback-type-select">
+          <option value="feedback">General Community Feedback</option>
+          <option value="complaint_inaccurate">Complaint: Activity information inaccurate</option>
+          <option value="complaint_not_occurred">Complaint: Event did not occur as described</option>
+          <option value="complaint_volunteer">Complaint: Volunteer attendance/hour issue</option>
+          <option value="complaint_donation">Complaint: Donation/Fundraising concern</option>
+          <option value="complaint_media">Complaint: Media provenance/authenticity concern</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Detailed Message & Context</label>
+        <textarea id="feedback-message-input" rows="4" placeholder="Describe the discrepancy, observation, or constructive feedback in detail..."></textarea>
+      </div>
+
+      <button class="btn btn-primary btn-block" onclick="window.submitFeedbackComplaint()">
+        <i data-lucide="send"></i> Submit to Platform Moderation
+      </button>
+    </div>
+  </div>
+
+  <!-- 7. NGO Create Upcoming Event Modal -->
+  <div id="create-event-modal" class="modal-overlay" onclick="window.closeCreateEventModal(event)">
+    <div class="modal-card" style="max-width: 600px;" onclick="event.stopPropagation()">
+      <button class="modal-close-btn" onclick="window.closeCreateEventModal()">
+        <i data-lucide="x"></i>
+      </button>
+      <div class="modal-badge">
+        <i data-lucide="calendar-plus"></i>
+        <span>NGO INITIATIVE</span>
+      </div>
+      <h3 style="margin-bottom: 0.35rem;">Create Upcoming Event</h3>
+      <p class="modal-desc" style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1.25rem;">
+        Configure upcoming volunteer positions, budget items, and live attendance parameters.
+      </p>
+
+      <div class="form-group">
+        <label>Event Title</label>
+        <input type="text" id="new-evt-title" placeholder="e.g. Coastal Cleanup & Mangrove Protection Drive" value="Community Health Checkup & Medicine Drive">
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+        <div class="form-group">
+          <label>Cause</label>
+          <select id="new-evt-cause">
+            <option value="Healthcare">Healthcare</option>
+            <option value="Education">Education</option>
+            <option value="Environment">Environment</option>
+            <option value="Food Security">Food Security</option>
+            <option value="Disaster Relief">Disaster Relief</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Event Date</label>
+          <input type="text" id="new-evt-date" value="20 October 2026">
+        </div>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+        <div class="form-group">
+          <label>Timing</label>
+          <input type="text" id="new-evt-time" value="09:00 AM - 02:00 PM">
+        </div>
+        <div class="form-group">
+          <label>Venue & City</label>
+          <input type="text" id="new-evt-venue" value="Dharavi Youth Hall, Mumbai">
+        </div>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+        <div class="form-group">
+          <label>Volunteer Slots</label>
+          <input type="number" id="new-evt-slots" value="20">
+        </div>
+        <div class="form-group">
+          <label>Fundraiser Goal (₹)</label>
+          <input type="number" id="new-evt-goal" value="50000">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Required Skills & Role</label>
+        <input type="text" id="new-evt-skills" value="Patient intake, medicine dispensing assistance, crowd coordination">
+      </div>
+
+      <button class="btn btn-primary btn-block" onclick="window.saveNewNgoEvent()">
+        <i data-lucide="check"></i> Publish Event to Public Feed
+      </button>
+    </div>
+  </div>
+
+  <!-- Toast Notification Box -->
+  <div id="toast-container" class="toast-container"></div>
+
+  <!-- Application Logic (ES Modules) -->
+  <script type="module" src="/js/app.js"></script>
+</body>
+</html>
